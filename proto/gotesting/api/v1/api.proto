@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package gotesting.api.v1;
+option go_package = "pkg/gen/api";
+
+import "google/api/annotations.proto";
+
+message SearchRequest {
+  string query = 1;
+}
+
+message SearchResponse {
+  repeated Recipe recipes = 1;
+}
+
+message Recipe {
+  string uri = 1;
+  string label = 2;
+  string image = 3;
+}
+
+service RecipeService {
+  rpc Search(SearchRequest) returns (SearchResponse) {
+    option (google.api.http) = {
+      get: "/v1/search" 
+    };
+  }
+}
